@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { GetAllCourses, filterCourses } from "../../../services/course";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCourses } from "../../../redux/slices/course";
+import { setIsCoursesNull, updateCourses } from "../../../redux/slices/course";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
