@@ -2,7 +2,7 @@ import React from 'react'
 
 const PrimaryBtn = () => {
   return (
-    <div>PrimaryBtn</div>
+    <button className='bg-blue-500 rounded-2xl px-2 text-center text-white font-semibold'>PrimaryBtn</button>
   )
 }
 
