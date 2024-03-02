@@ -47,10 +47,14 @@ const CourseDetails = () => {
     });
   };
   return (
-    <div className="h-[90vh] flex">
-      <img src={noImage} alt="banner" className="w-[50%] h-full object-fit" />
-      <div className=" h-full w-[50%] p-4 py-6 flex flex-col justify-start text-left overflow-y-scroll">
-        <h1 className="text-blue-500 font-semibold text-3xl flex items-center gap-2">
+    <div className="h-full md:h-[90vh] flex flex-col md:flex-row">
+      <img
+        src={noImage}
+        alt="banner"
+        className="w-full md:w-[50%] h-[30vh] md:h-full object-fit"
+      />
+      <div className=" h-full w-[100%] md:w-[50%] p-2 md:p-4 py-6 flex flex-col justify-start text-left md:overflow-y-scroll">
+        <h1 className="text-blue-500 font-semibold text-3xl flex items-start md:items-center gap-2">
           {Course.name}{" "}
           <span
             className={`!text-white ${
@@ -101,7 +105,8 @@ const CourseDetails = () => {
             <span>{Course?.duration ? Course?.duration : "2 weeks"}</span>
           </div>
           <div className="flex gap-2 items-center">
-            <AiOutlineSchedule /> <span>Schedule</span>
+            <AiOutlineSchedule />{" "}
+            <span>{Course?.schedule ? Course?.schedule : ""}</span>
           </div>
           <div className="flex gap-2 items-center">
             <FaLocationDot /> <span>{Course?.location}</span>

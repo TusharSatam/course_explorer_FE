@@ -20,9 +20,9 @@ const Home = () => {
   }, [AllCourses]);
 
   return (
-    <div className="h-[90vh] flex gap-2 overflow-hidden">
-      <div className="userCard bg-white border-2 border-gray-400 rounded-md  flex justify-center items-center flex-col gap-2 p-4 mt-4 h-[35vh] w-[20%]">
-        <FaUserCircle className="h-[100px] w-[100px] text-blue-400" />
+    <div className="h-full md:h-[90vh] flex flex-col md:flex-row gap-2 overflow-hidden px-2">
+      <div className="userCard bg-white border-2 border-gray-400 rounded-md  flex justify-center items-center md:flex-col gap-1 md:gap-2 p-4 mt-4 md:h-[35vh] md:w-[20%]">
+        <FaUserCircle className="h-[40px] w-[40px] md:h-[100px] md:w-[100px] text-blue-400" />
         <h1>{userInfo?.name ? userInfo?.name : ""}</h1>
         <SecondaryBtn
           text={"Dashboard"}
@@ -35,7 +35,7 @@ const Home = () => {
           <img src={loader} alt="Loader" />
         </div>
       ) : (
-        <div className="courses overflow-y-scroll row-span-6 col-span-4 grid grid-cols-3 gap-3 p-4 h-full w-[80%]">
+        <div className="courses overflow-y-scroll row-span-6 col-span-4 grid grid-cols-1 md:grid-cols-3 gap-3 !pr-0 md:pl-4 py-2 md:py-4 h-full md:w-[80%]">
           {courses?.map((item, i) => (
             <CourseItem key={i} item={item} />
           ))}

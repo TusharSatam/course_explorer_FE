@@ -30,7 +30,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App h-screen w-screen lg:w-[1400px] lg:mx-auto">
+    <div className="App h-screen w-screen lg:w-[1400px] lg:mx-auto flex flex-col justify-between">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
