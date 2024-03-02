@@ -6,8 +6,10 @@ import StudentDashboard from "./Pages/StudentDashboard/StudentDashboard";
 import Navbar from "./components/Buttons/Navbar/Navbar";
 import { GetAllCourses } from "./services/course";
 import { useEffect } from "react";
-import {  setIsCoursesNull, updateCourses } from "./redux/slices/course";
+import { setIsCoursesNull, updateCourses } from "./redux/slices/course";
 import { useDispatch } from "react-redux";
+import { getStudentByID } from "./services/student";
+import { updateStudentInfo } from "./redux/slices/student";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,6 +24,9 @@ function App() {
       .catch((error) => {
         console.error("Error fetching courses:", error);
       });
+    getStudentByID().then((res) => {
+      dispatch(updateStudentInfo(res?.res?.data));
+    });
   }, []);
 
   return (

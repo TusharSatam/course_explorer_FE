@@ -27,7 +27,7 @@ export const getCourseByID = async (id) => {
 };
 export const enrollCourse = async (userID, courseID) => {
   try {
-    const res = await axiosInstance.get(`/user/${userID}/enroll/${courseID}`);
+    const res = await axiosInstance.post(`/user/${userID}/enroll/${courseID}`);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };

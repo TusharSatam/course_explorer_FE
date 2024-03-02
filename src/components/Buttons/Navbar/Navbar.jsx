@@ -3,12 +3,12 @@ import { LOGO } from "../../../assets";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { GetAllCourses, filterCourses } from "../../../services/course";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateCourses } from "../../../redux/slices/course";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const userInfo = useSelector((state) => state.student.userInfo);
   const handleSearch = (e) => {
     if (e.target.value != "") {
       filterCourses(e.target.value).then((res) => {
@@ -44,9 +44,14 @@ const Navbar = () => {
         className="h-[70%] md:w-[350px] rounded-xl p-3 bg-gray-200 text-gray-500 focus:outline-none"
         onChange={(e) => handleSearch(e)}
       />
-      <div className="h-full  flex gap-1 justify-between items-center cursor-pointer">
+      <div
+        className="h-full  flex gap-1 justify-between items-center cursor-pointer"
+        onClick={() => navigate("/student-dashboard")}
+      >
         <FaUserCircle className="h-[70%] w-full text-blue-400" />
-        <h1 className="font-semibold text-gray-500">Dummy</h1>
+        <h1 className="font-semibold text-gray-500">
+          {userInfo?.name ? userInfo?.name : ""}
+        </h1>
       </div>
     </nav>
   );

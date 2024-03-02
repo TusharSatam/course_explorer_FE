@@ -15,9 +15,15 @@ import {
 
 import "react-accessible-accordion/dist/fancy-example.css";
 import PrimaryBtn from "../../components/Buttons/PrimaryBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStudentInfo } from "../../redux/slices/student";
+import { getStudentByID } from "../../services/student";
+import SecondaryBtn from "../../components/Buttons/SecondaryBtn";
 const CourseDetails = () => {
   const { id } = useParams();
   const [Course, setCourse] = useState({});
+  const userInfo = useSelector((state) => state.student.userInfo);
+  const dispatch = useDispatch();
   useEffect(() => {
     getCourseByID(id)
       .then((res) => {
@@ -29,11 +35,17 @@ const CourseDetails = () => {
       });
   }, [id]);
 
-  const handleEnroll=()=>{
-    // enrollCourse(id).then((res)=>{
-    //   console.log(res?.res?.data);
-    // })
-  }
+  const handleEnroll = () => {
+    console.log("enrolled");
+    enrollCourse(userInfo?._id, id).then((res) => {
+      if (res?.res?.data) {
+        console.log(res?.res?.data);
+        getStudentByID().then((res) => {
+          dispatch(updateStudentInfo(res?.res?.data));
+        });
+      }
+    });
+  };
   return (
     <div className="h-[90vh] flex">
       <img src={noImage} alt="banner" className="w-[50%] h-full object-fit" />
@@ -63,7 +75,23 @@ const CourseDetails = () => {
             ? `${Course.enrolledStudents?.length} Students`
             : ""}
         </h4>
-       {Course?.enrollmentStatus!=="Closed" && <PrimaryBtn text={"Enroll now"} btnClass={"my-2"} onClick={handleEnroll}/>}
+        {Course?.enrollmentStatus !== "Closed" && (
+          <>
+            {!userInfo?.enrolledCourses?.includes(id) ? (
+              <PrimaryBtn
+                text={"Enroll now"}
+                btnClass={"my-2"}
+                onClick={handleEnroll}
+              />
+            ) : (
+              <SecondaryBtn
+                disabled={true}
+                text={"Enrolled"}
+                btnClass={"w-fit my-2"}
+              />
+            )}
+          </>
+        )}
 
         <p className="desc mt-10">{Course.description}</p>
         <div className="ClassInfo border p-4 flex gap-3 w-full flex-col  font-semibold bg-blue-400 text-white rounded-lg text-lg my-4">

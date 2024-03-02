@@ -10,11 +10,11 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
+  const userInfo = useSelector((state) => state.student.userInfo);
 
   const AllCourses = useSelector((state) => state.courses.allCourses);
   useEffect(() => {
     if (AllCourses?.length > 0) {
-      console.log("Home", AllCourses);
       setCourses(AllCourses);
     }
   }, [AllCourses]);
@@ -23,7 +23,7 @@ const Home = () => {
     <div className="h-[90vh] flex gap-2 overflow-hidden">
       <div className="userCard bg-white border-2 border-gray-400 rounded-md  flex justify-center items-center flex-col gap-2 p-4 mt-4 h-[35vh] w-[20%]">
         <FaUserCircle className="h-[100px] w-[100px] text-blue-400" />
-        <h1>Dummy User</h1>
+        <h1>{userInfo?.name ? userInfo?.name : ""}</h1>
         <SecondaryBtn
           text={"Dashboard"}
           onClick={() => navigate("/student-dashboard")}
