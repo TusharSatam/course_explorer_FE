@@ -15,7 +15,7 @@ const courseSlice = createSlice({
         allCourses: action.payload,
       };
     },
-    setIsCoursesNull: (state,action) => {
+    setIsCoursesNull: (state, action) => {
       return {
         ...state,
         isCoursesNull: action.payload,
@@ -24,5 +24,5 @@ const courseSlice = createSlice({
   },
 });
 
-export const { updateCourses,setIsCoursesNull } = courseSlice.actions;
+export const { updateCourses, setIsCoursesNull } = courseSlice.actions;
 export default courseSlice.reducer;

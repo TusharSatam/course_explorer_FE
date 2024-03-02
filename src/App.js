@@ -6,7 +6,7 @@ import StudentDashboard from "./Pages/StudentDashboard/StudentDashboard";
 import Navbar from "./components/Buttons/Navbar/Navbar";
 import { GetAllCourses } from "./services/course";
 import { useEffect } from "react";
-import { updateCourses, setIsCoursesNull } from "./redux/slices/course";
+import {  setIsCoursesNull, updateCourses } from "./redux/slices/course";
 import { useDispatch } from "react-redux";
 function App() {
   const dispatch = useDispatch();

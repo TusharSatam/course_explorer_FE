@@ -3,8 +3,8 @@ import { LOGO } from "../../../assets";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { GetAllCourses, filterCourses } from "../../../services/course";
-import { updateCourses } from "../../../redux/slices/course";
 import { useDispatch } from "react-redux";
+import { updateCourses } from "../../../redux/slices/course";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className=" bg-white rounded-md border-b-2 border-gray-200 w-full h-[10vh] flex  justify-between items-center px-6 sticky">
+    <nav className=" bg-white  border-b-2 border-gray-200 w-full h-[10vh] flex  justify-between items-center px-6 sticky top-0">
       <img
         src={LOGO}
         alt="brandLOGO"
