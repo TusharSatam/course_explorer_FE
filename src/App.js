@@ -10,6 +10,8 @@ import { setIsCoursesNull, updateCourses } from "./redux/slices/course";
 import { useDispatch } from "react-redux";
 import { getStudentByID } from "./services/student";
 import { updateStudentInfo } from "./redux/slices/student";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,6 +33,18 @@ function App() {
 
   return (
     <div className="App h-screen w-screen lg:w-[1400px] lg:mx-auto flex flex-col justify-between">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

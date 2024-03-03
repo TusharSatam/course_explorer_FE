@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { GetAllCourses, filterCourses } from "../../../services/course";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsCoursesNull, updateCourses } from "../../../redux/slices/course";
+import { IoSearch } from "react-icons/io5";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,11 +43,14 @@ const Navbar = () => {
           onClick={() => navigate("/")}
         />
         {location.pathname === "/" && ( // Conditionally render input only on "/"
-          <input
-            placeholder="Search for Courses or Instructors"
-            className="hidden md:flex h-[70%] md:w-[350px] rounded-xl p-3 bg-gray-200 text-gray-500 focus:outline-none"
-            onChange={(e) => handleSearch(e)}
-          />
+          <div className="relative flex items-center">
+            <IoSearch className="hidden md:flex text-gray-500 absolute left-2 text-lg font-bold" />
+            <input
+              placeholder="Search for Courses or Instructors"
+              className="hidden md:flex h-[70%] md:w-[350px] rounded-lg p-3 bg-gray-100 text-gray-500 focus:outline-none pl-8"
+              onChange={(e) => handleSearch(e)}
+            />
+          </div>
         )}
         <div
           className="h-full  flex md:gap-1 justify-between items-center cursor-pointer"
@@ -59,11 +63,14 @@ const Navbar = () => {
         </div>
       </div>
       {location.pathname === "/" && (
-        <input
-          placeholder="Search for Courses or Instructors"
-          className="md:hidden flex h-[70%] w-[90%] mx-auto rounded-xl p-3 bg-gray-200 text-gray-500 focus:outline-none"
-          onChange={(e) => handleSearch(e)}
-        />
+        <div className="relative flex items-center">
+          <IoSearch className="md:hidden flex text-gray-500 absolute left-6 text-lg font-bold" />
+          <input
+            placeholder="Search for Courses or Instructors"
+            className="md:hidden flex h-[70%] w-[90%] mx-auto rounded-lg p-4 bg-gray-100 text-gray-500 focus:outline-none pl-8"
+            onChange={(e) => handleSearch(e)}
+          />
+        </div>
       )}
     </nav>
   );

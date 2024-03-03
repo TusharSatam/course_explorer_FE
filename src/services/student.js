@@ -14,34 +14,34 @@ export const getStudentByID = async () => {
   }
 };
 
-export const getEnrolledCourses = async () => {
+export const getEnrolledCourses = async (userId) => {
   try {
-    const res = await axiosInstance.get(`/user/${userID}/enrolled-courses`);
+    const res = await axiosInstance.get(`/user/${userId}/enrolled-courses`);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
   }
 };
 
-export const getCompletedCourses = async () => {
+export const getCompletedCourses = async (userId) => {
   try {
-    const res = await axiosInstance.get(`/user/${userID}/completed-courses`);
+    const res = await axiosInstance.get(`/user/${userId}/completed-courses`);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
   }
 };
-export const markAsCompleted = async (courseID) => {
+export const markAsCompleted = async (userId,courseID) => {
   try {
-    const res = await axiosInstance.post(`/students/${userID}/markCompleted/${courseID}`);
+    const res = await axiosInstance.put(`/user/students/${userId}/markCompleted/${courseID}`);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
   }
 };
-export const unmarkAsCompleted = async (courseID) => {
+export const unmarkAsCompleted = async (userId,courseID) => {
   try {
-    const res = await axiosInstance.post(`/students/${userID}/unmarkCompleted/${courseID}`);
+    const res = await axiosInstance.put(`/user/students/${userId}/unmarkCompleted/${courseID}`);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
