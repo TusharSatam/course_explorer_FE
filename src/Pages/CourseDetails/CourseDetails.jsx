@@ -30,7 +30,6 @@ const CourseDetails = () => {
     setCourseLoader(true);
     getCourseByID(id)
       .then((res) => {
-        console.log(res?.res?.data);
         if (res?.res?.data) {
           setCourse(res?.res?.data);
           setCourseLoader(false);
@@ -42,10 +41,8 @@ const CourseDetails = () => {
   }, [id]);
 
   const handleEnroll = () => {
-    console.log("enrolled");
     enrollCourse(userInfo?._id, id).then((res) => {
       if (res?.res?.data) {
-        console.log(res?.res?.data);
         getStudentByID().then((res) => {
           dispatch(updateStudentInfo(res?.res?.data));
         });
@@ -55,13 +52,13 @@ const CourseDetails = () => {
   return (
     <div className="h-full md:h-[90vh] flex flex-col md:flex-row">
       <img
-        src={noImage}
+        src={Course?.thumbnail ? Course?.thumbnail : noImage}
         alt="banner"
-        className="w-full md:w-[50%] h-[30vh] md:h-full object-fit"
+        className="w-full md:w-[50%] h-[30vh] md:h-full object-contain"
       />
       {!CourseLoader ? (
         <div className=" h-full w-[100%] md:w-[50%] p-2 md:p-4 py-6 flex flex-col justify-start text-left md:overflow-y-scroll">
-          <h1 className="text-blue-500 font-semibold text-3xl flex items-start md:items-center gap-2">
+          <h1 className="text-blue-500 font-semibold text-xl md:text-3xl flex items-start md:items-center gap-2">
             {Course.name}{" "}
             <span
               className={`!text-white ${
@@ -70,7 +67,7 @@ const CourseDetails = () => {
                   : Course.enrollmentStatus === "In Progress"
                   ? "bg-yellow-500"
                   : "bg-green-500"
-              } p-4 md:p-2  rounded-lg md:rounded-full !text-sm text-center`}
+              } p-2 md:p-2  rounded-lg md:rounded-full !text-sm text-center`}
             >
               {Course.enrollmentStatus ? Course.enrollmentStatus : "OPEN"}
             </span>
@@ -121,7 +118,7 @@ const CourseDetails = () => {
           </div>
           <div></div>
           <div className="Pre_Requisites">
-            <h4 className="text-lg font-semibold">
+            <h4 className="md:text-lg font-semibold">
               Pre-requisites :{" "}
               {Course?.prerequisites?.map((e, i) => (
                 <span key={i} className="font-medium">

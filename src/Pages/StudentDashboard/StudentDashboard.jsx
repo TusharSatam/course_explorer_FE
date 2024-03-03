@@ -1,43 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import EnrolledItem from "../../components/EnrolledItem/EnrolledItem";
-import {
-  getCompletedCourses,
-  getEnrolledCourses,
-} from "../../services/student";
-import Loader from "../../components/loader/Loader";
+
 import PrimaryBtn from "../../components/Buttons/PrimaryBtn";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 const StudentDashboard = () => {
   const student = useSelector((state) => state.student.userInfo);
+  const studentStatus = useSelector((state) => state.student);
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [enrolledCourses, setenrolledCourses] = useState([]);
-  const [completedCourses, setcompletedCourses] = useState([]);
-  const [enrollListLoader, setEnrollListLoader] = useState(true);
-  const [completedListLoader, setCompletedListLoader] = useState(true);
+  const [enrolledCourses, setenrolledCourses] = useState(null);
+  const [completedCourses, setcompletedCourses] = useState(null);
 
   useEffect(() => {
     if (student?._id) {
-      setEnrollListLoader(true);
-      setCompletedListLoader(true);
-      getEnrolledCourses(student?._id).then((res) => {
-        if (res?.res?.data) {
-          console.log(res?.res?.data);
-          setenrolledCourses(res?.res?.data);
-          setEnrollListLoader(false);
-        }
-      });
-      getCompletedCourses(student?._id).then((res) => {
-        if (res?.res?.data) {
-          console.log(res?.res?.data);
-          setcompletedCourses(res?.res?.data);
-          setCompletedListLoader(false);
-        }
-      });
+      setenrolledCourses(studentStatus?.enrolledIn);
+      setcompletedCourses(studentStatus?.completed);
     }
-  }, [student]);
+  }, [studentStatus]);
 
   return (
     <div className="h-full md:h-[90vh] px-2 md-px-4 ">
@@ -53,7 +35,7 @@ const StudentDashboard = () => {
           </h2>
 
           <div className="enrolledList p-4 flex flex-col h-[90%]  gap-4 overflow-y-scroll scroll-smooth">
-            {enrolledCourses.length > 0 ? (
+            {enrolledCourses?.length > 0 ? (
               enrolledCourses?.map((e, i) => (
                 <EnrolledItem
                   key={i}
@@ -62,7 +44,7 @@ const StudentDashboard = () => {
                   listName={"Enrolled"}
                 />
               ))
-            ) : !enrollListLoader ? (
+            ) : enrolledCourses?.length === 0 ? (
               <div className="h-full text-center flex flex-col gap-2 items-center">
                 <h1 className="font-semibold">
                   {" "}
@@ -73,7 +55,7 @@ const StudentDashboard = () => {
                 </p>
                 <PrimaryBtn text={"Explore"} onClick={() => navigate("/")} />
               </div>
-            ) : null}
+            ) : <Loader/>}
           </div>
         </div>
         <div className="w-full md:w-1/2 h-full">
@@ -91,7 +73,7 @@ const StudentDashboard = () => {
                   listName={"Completed"}
                 />
               ))
-            ) : !completedListLoader ? (
+            ) : completedCourses?.length === 0 ? (
               <div className="h-full text-center flex flex-col gap-2 items-center">
                 <h1 className="font-semibold">
                   {" "}
@@ -101,7 +83,7 @@ const StudentDashboard = () => {
                   Explore our courses, learn new skills, and achieve your goals.
                 </p>
               </div>
-            ) : null}
+            ) : <Loader/>}
           </div>
         </div>
       </div>

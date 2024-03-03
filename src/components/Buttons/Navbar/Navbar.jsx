@@ -16,13 +16,11 @@ const Navbar = () => {
       filterCourses(e.target.value).then((res) => {
         if (res.res.data) {
           dispatch(updateCourses(res.res.data));
-          console.log(res.res.data);
         }
       });
     } else {
       GetAllCourses()
         .then((res) => {
-          console.log(res?.res?.data);
           dispatch(updateCourses(res?.res?.data));
           if (res?.res?.data?.length === 0) {
             dispatch(setIsCoursesNull(true));

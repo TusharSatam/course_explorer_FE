@@ -7,17 +7,25 @@ import Navbar from "./components/Buttons/Navbar/Navbar";
 import { GetAllCourses } from "./services/course";
 import { useEffect } from "react";
 import { setIsCoursesNull, updateCourses } from "./redux/slices/course";
-import { useDispatch } from "react-redux";
-import { getStudentByID } from "./services/student";
-import { updateStudentInfo } from "./redux/slices/student";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCompletedCourses,
+  getEnrolledCourses,
+  getStudentByID,
+} from "./services/student";
+import {
+  updateCompleted,
+  updateEnrolledIn,
+  updateStudentInfo,
+} from "./redux/slices/student";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function App() {
+  const student = useSelector((state) => state.student.userInfo);
   const dispatch = useDispatch();
   useEffect(() => {
     GetAllCourses()
       .then((res) => {
-        console.log(res?.res?.data);
         dispatch(updateCourses(res?.res?.data));
         if (res?.res?.data?.length === 0) {
           dispatch(setIsCoursesNull(true));
@@ -30,6 +38,20 @@ function App() {
       dispatch(updateStudentInfo(res?.res?.data));
     });
   }, []);
+  useEffect(() => {
+    if (student?._id) {
+      getEnrolledCourses(student?._id).then((res) => {
+        if (res?.res?.data) {
+          dispatch(updateEnrolledIn(res?.res?.data));
+        }
+      });
+      getCompletedCourses(student?._id).then((res) => {
+        if (res?.res?.data) {
+          dispatch(updateCompleted(res?.res?.data));
+        }
+      });
+    }
+  }, [student]);
 
   return (
     <div className="App h-screen w-screen lg:w-[1400px] lg:mx-auto flex flex-col justify-between">

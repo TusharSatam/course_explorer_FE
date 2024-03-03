@@ -9,7 +9,6 @@ import Loader from "../../components/loader/Loader";
 const Home = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState(null);
-  const [coursesLoader, setCoursesLoader] = useState(true);
   const userInfo = useSelector((state) => state.student.userInfo);
 
   const AllCourses = useSelector((state) => state.courses.allCourses);
@@ -17,7 +16,6 @@ const Home = () => {
     if (AllCourses?.length > 0) {
       setCourses(AllCourses);
     }
-    setCoursesLoader(false);
   }, [AllCourses]);
   return (
     <div className="h-full md:h-[90vh] flex flex-col md:flex-row gap-2 overflow-hidden px-2">

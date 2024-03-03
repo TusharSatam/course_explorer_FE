@@ -16,7 +16,6 @@ const EnrolledItem = ({ value, item, listName }) => {
   const student = useSelector((state) => state.student.userInfo);
   const handleMarkCompleted = () => {
     markAsCompleted(student?._id, item?._id).then((res) => {
-      console.log(res?.res?.data);
       if (res?.res?.data) {
         getStudentByID().then((res) => {
           dispatch(updateStudentInfo(res?.res?.data));
@@ -27,7 +26,6 @@ const EnrolledItem = ({ value, item, listName }) => {
   };
   const handleUnMarkCompleted = () => {
     unmarkAsCompleted(student?._id, item?._id).then((res) => {
-      console.log(res?.res?.data);
       if (res?.res?.data) {
         getStudentByID().then((res) => {
           dispatch(updateStudentInfo(res?.res?.data));
@@ -38,7 +36,7 @@ const EnrolledItem = ({ value, item, listName }) => {
   };
   return (
     <div className="enrolledItem flex flex-col md:flex-row gap-4 justify-start items-center border-2 p-4 border-gray-400 rounded-lg bg-white">
-      <img src={noImage} alt="thumbnail" className="h-[100px] w-[100px]"/>
+      <img src={item?.thumbnail?item?.thumbnail:noImage} alt="thumbnail" className=" md:h-[100px] md:w-[100px]"/>
       <div className=" flex flex-col gap-2 lg:gap-4 justify-center items-center w-full">
 
       <div className="flex justify-center items-center lg:justify-between w-full flex-col lg:flex-row gap-1 lg:gap-2 ">
