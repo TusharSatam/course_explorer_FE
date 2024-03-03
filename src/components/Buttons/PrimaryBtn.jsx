@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const PrimaryBtn = () => {
+const PrimaryBtn = ({ text, btnClass,onClick}) => {
   return (
-    <div>PrimaryBtn</div>
-  )
-}
+    <button onClick={onClick??onClick} className={`bg-blue-500 text-sm  rounded-lg px-2 py-2 text-center text-white font-semibold w-fit ${btnClass?btnClass:""} `}>
+      {text ? text : "PrimaryBtn"}
+    </button>
+  );
+};
 
-export default PrimaryBtn
+export default PrimaryBtn;
