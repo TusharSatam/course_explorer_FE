@@ -3,7 +3,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import SecondaryBtn from "../../components/Buttons/SecondaryBtn";
 import CourseItem from "../../components/CourseItem/CourseItem";
-import { GetAllCourses } from "../../services/course";
 import { loader } from "../../assets";
 import { useSelector } from "react-redux";
 
@@ -18,7 +17,7 @@ const Home = () => {
       setCourses(AllCourses);
     }
   }, [AllCourses]);
-
+  //TODO:error handling with toastify
   return (
     <div className="h-full md:h-[90vh] flex flex-col md:flex-row gap-2 overflow-hidden px-2">
       <div className="userCard bg-white border-2 border-gray-400 rounded-md  flex justify-center items-center md:flex-col gap-1 md:gap-2 p-4 mt-4 md:h-[35vh] md:w-[20%]">
@@ -31,7 +30,7 @@ const Home = () => {
       </div>
 
       {courses?.length === 0 ? (
-        <div className="courses row-span-6  p-4 h-full text-center flex justify-center items-center w-[80%]">
+        <div className="courses row-span-6  p-4 h-full text-center flex justify-center items-center w-full md:w-[80%]">
           <img src={loader} alt="Loader" />
         </div>
       ) : (
